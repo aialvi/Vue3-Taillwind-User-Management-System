@@ -6,15 +6,12 @@ import UsersHeader from "./components/UsersHeader.vue";
 
 <template>
   <UsersHeader />
-
   <CreateUser />
 
-  <main>
-    <UserList />
-  </main>
+  <UserList />
 </template>
 <style>
-* {
+body {
   font-family: "Rubik", sans-serif;
 }
 </style>

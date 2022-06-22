@@ -1,5 +1,8 @@
 <template>
-  <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div
+    class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8"
+    :key="key"
+  >
     <div class="mt-2 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-4 px-4 shadow-md sm:rounded-lg sm:px-10">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
@@ -20,7 +23,7 @@
                 autocomplete="name"
                 class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 bg-gray-50 focus:bg-gray-100 sm:text-sm"
               />
-              <ErrorMessage name="name" class="text-red-500" />
+              <ErrorMessage name="name" class="text-red-500" as="p" />
             </div>
           </div>
           <div>
@@ -37,7 +40,7 @@
                 autocomplete="job"
                 class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-gray-500 focus:border-gray-500 bg-gray-50 focus:bg-gray-100 sm:text-sm"
               />
-              <ErrorMessage name="job" class="text-red-500" />
+              <ErrorMessage name="job" class="text-red-500" as="p" />
             </div>
           </div>
 
@@ -75,6 +78,7 @@ export default defineComponent({
     ErrorMessage,
   },
   setup() {
+    const key = ref(0);
     const user = ref({
       name: "",
       job: "",
@@ -87,6 +91,10 @@ export default defineComponent({
 
     const setName = (name: string) => {
       user.value.name = name;
+    };
+
+    const changeKey = () => {
+      key.value++;
     };
 
     const clearUser = () => {
@@ -133,8 +141,6 @@ export default defineComponent({
           job: data.job,
         };
         usersStore.addUser(newUser);
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
@@ -143,11 +149,13 @@ export default defineComponent({
         });
       } finally {
         clearUser();
+        changeKey();
       }
     };
 
     return {
       user,
+      key,
       createUser,
       validateName,
       validateJob,
