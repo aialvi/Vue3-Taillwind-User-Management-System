@@ -11,6 +11,8 @@ import UsersHeader from "./components/UsersHeader.vue";
   <UserList />
 </template>
 <style>
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
+
 body {
   font-family: "Rubik", sans-serif;
 }
